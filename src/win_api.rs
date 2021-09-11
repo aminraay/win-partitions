@@ -8,6 +8,7 @@ use crate::bindings::{
     Windows::Win32::Storage::FileSystem::GetVolumeInformationW,
 };
 
+/// Creates Rust String from vector u16
 fn vec_u16_to_string(vec: &Vec<u16>) -> String {
     let mut index = 0;
     for item in 0..vec.len() {
@@ -86,6 +87,10 @@ pub fn get_volume_information(
     }
 }
 
+/// Get drive type by calling [GetDriveTypeW](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getdrivetypew)
+/// API function.
+///
+/// Minimum OS: Windows XP/Windows Server 2003
 pub fn get_drive_type(
     lprootpathname: String,
 ) -> DriveType {

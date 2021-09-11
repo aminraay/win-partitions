@@ -18,8 +18,8 @@ pub fn get_partitions() -> Result<Vec<WindowsPartition>, Error> {
     for volume in drives {
         let path = format!("{}:\\", volume);
         let drive_type = get_drive_type(path.to_string());
-        let volume_information = get_volume_information(path.to_string())?;
         let disk_free_space = get_disk_free_space(path.to_string())?;
+        let volume_information = get_volume_information(path.to_string())?;
         result.push(WindowsPartition {
             name: volume_information.0,
             free_space: disk_free_space.2,
