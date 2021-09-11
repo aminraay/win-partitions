@@ -1,8 +1,10 @@
 [package]
-name = "win_partiotions"
-version = "0.2.0"
+name = "win_partitions"
+version = "0.1.0"
 authors = ["AliAkbar Shahi", "Hamed J.I"]
 edition = "2018"
+license = "MIT"
+description = "Provides list of system partitions in Windows"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
