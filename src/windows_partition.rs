@@ -12,8 +12,8 @@ pub struct WindowsPartition {
     pub drive_type: DriveType,
 }
 
-fn get_volume_name() -> Result<Vec<WindowsPartition>, Error> {
-    let drives = get_logical_drive();
+pub fn get_partitions() -> Result<Vec<WindowsPartition>, Error> {
+    let drives = get_logical_drive()?;
     let mut result: Vec<WindowsPartition> = vec![];
     for volume in drives {
         let path = format!("{}:\\", volume);
@@ -39,7 +39,7 @@ mod test {
 
     #[test]
     fn get_volume_name_test() {
-        let res = get_volume_name();
+        let res = get_partitions();
         for item in res.unwrap() {
             println!("{:?}", item)
         }

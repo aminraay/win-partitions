@@ -10,3 +10,4 @@ edition = "2018"
 windows = "0.18.0"
 
 [build-dependencies]
+windows = "0.18.0"

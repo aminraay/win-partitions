@@ -120,18 +120,22 @@ pub fn get_disk_free_space(
 
 /// Use [GetLogicalDrives](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getlogicaldrives) Windows API function
 /// and returns Vector of drive letters
-pub fn get_logical_drive() -> Vec<char> {
-    let logical_drive_decimal = unsafe { GetLogicalDrives() };
-    let mut mask = 1;
-    let mut result: Vec<char> = vec![];
+pub fn get_logical_drive() -> Result<Vec<char>, Error> {
+    let bitmask = unsafe { GetLogicalDrives() };
+    if bitmask == 0 {
+        Err(Error::last_os_error())
+    } else {
+        let mut mask = 1;
+        let mut result: Vec<char> = vec![];
 
-    for index in 1..26 {
-        if mask & logical_drive_decimal == mask {
-            let char = std::char::from_u32(index + 64);
-            result.push(char.unwrap());
+        for index in 1..26 {
+            if mask & bitmask == mask {
+                let char = std::char::from_u32(index + 64);
+                result.push(char.unwrap());
+            }
+            mask = mask << 1;
         }
-        mask = mask << 1;
-    }
 
-    result
+        result
+    }
 }
