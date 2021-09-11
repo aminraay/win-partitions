@@ -47,6 +47,8 @@ impl From<u32> for DriveType {
     }
 }
 
+/// Use [GetVolumeInformationW](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getvolumeinformationw) API function
+/// and returns tuple of (volume name, file system name,volume serial, max length, file system flags)
 pub fn get_volume_information(
     lprootpathname: String
 ) -> Result<(String, String, u32, u32, u32), Error> {
@@ -136,6 +138,6 @@ pub fn get_logical_drive() -> Result<Vec<char>, Error> {
             mask = mask << 1;
         }
 
-        result
+        Ok(result)
     }
 }
