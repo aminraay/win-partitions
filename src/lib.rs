@@ -1,4 +1,4 @@
-mod windows_partition;
+pub mod windows_partition;
 mod win_api;
 
 mod bindings {
