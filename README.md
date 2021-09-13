@@ -1,9 +1,8 @@
 # win-partitions
 
-A Rust crate to get windows partitions information using Windows API.
+A Rust crate to get windows partitions list and their information using Windows API.
 
-# Examples
-
+# Example
 
 ```rust
 use win_partitions::windows_partition::get_partitions;
