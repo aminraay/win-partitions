@@ -1,12 +1,4 @@
-# win-partitions
-
-A Rust crate to get windows partitions information using Windows API.
-
-# Examples
-
-
-```rust
-use win_partitions::windows_partition::get_partitions;
+use win_partitions::windows_partitions::get_partitions;
 
 fn main() {
     let list = get_partitions();
@@ -19,4 +11,3 @@ fn main() {
         println!();
     }
 }
-```
