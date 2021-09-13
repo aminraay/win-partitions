@@ -1,6 +1,6 @@
 [package]
 name = "win_partitions"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["AliAkbar Shahi", "Hamed J.I"]
 edition = "2018"
 license = "MIT"
