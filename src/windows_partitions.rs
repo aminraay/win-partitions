@@ -2,17 +2,27 @@ use std::io::Error;
 
 use crate::win_api::*;
 
+/// Provides information about a partition
 #[derive(Debug)]
 pub struct WindowsPartition {
+    /// Drive letter assigned to partition
     pub letter: char,
+    /// Indicate if partition is ready.
+    /// For a CD-Rom drive this property indicates if CD was inserted
     pub ready: bool,
+    /// Partition name
     pub name: String,
+    /// Total size of partition in bytes
     pub size: u64,
+    /// Free space in bytes
     pub free_space: u64,
+    /// Partition format name
     pub file_system_name: String,
+    /// Partition type
     pub drive_type: DriveType,
 }
 
+/// Gets list of system partitions or operating system error
 pub fn get_partitions() -> Result<Vec<WindowsPartition>, Error> {
     let drives = get_logical_drive()?;
     let mut result: Vec<WindowsPartition> = vec![];

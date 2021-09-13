@@ -20,14 +20,22 @@ fn vec_u16_to_string(vec: &Vec<u16>) -> String {
     String::from_utf16_lossy(&vec[0..index])
 }
 
+/// Defines different drive types according to [GetDriveTypeW](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getdrivetypew)
 #[derive(Debug)]
 pub enum DriveType {
+    /// The drive type cannot be determined
     DriveUnknown = 0,
+    /// The root path is invalid; for example, there is no volume mounted at the specified path
     DriveNoRootDir = 1,
+    /// The drive has removable media; for example, a floppy drive, thumb drive, or flash card reader
     DriveRemovable = 2,
+    /// The drive has fixed media; for example, a hard disk drive or flash drive.
     DriveFixed = 3,
+    /// The drive is a remote (network) drive.
     DriveRemote = 4,
+    /// The drive is a CD-ROM drive.
     DriveCDRom = 5,
+    /// The drive is a RAM disk.
     DriveRamDisk = 6,
 }
 
@@ -50,6 +58,8 @@ impl From<u32> for DriveType {
 
 /// Use [GetVolumeInformationW](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getvolumeinformationw) API function
 /// and returns tuple of (volume name, file system name,volume serial, max length, file system flags)
+///
+/// Minimum OS Version: Windows XP/Windows Server 2003
 pub fn get_volume_information(
     lprootpathname: String
 ) -> Result<(String, String, u32, u32, u32), Error> {
@@ -103,6 +113,10 @@ pub fn get_drive_type(
     DriveType::from(result)
 }
 
+/// Calls [GetDiskFreeSpaceW](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getdiskfreespacew)
+/// Windows API and returns tuple of (free bytes available to caller, total number of bytes, total number of free bytes)
+///
+/// Minimum OS: Windows XP/Windows Server 2003
 pub fn get_disk_free_space(
     lpdirectoryname: String
 ) -> Result<(u64, u64, u64), Error> {
@@ -125,7 +139,7 @@ pub fn get_disk_free_space(
     }
 }
 
-/// Use [GetLogicalDrives](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getlogicaldrives) Windows API function
+/// Calls [GetLogicalDrives](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getlogicaldrives) Windows API function
 /// and returns Vector of drive letters
 pub fn get_logical_drive() -> Result<Vec<char>, Error> {
     let bitmask = unsafe { GetLogicalDrives() };
